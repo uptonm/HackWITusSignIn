@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon .",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "jest": {
     "setupTestFrameworkScriptFile": "./tests/setup.js"

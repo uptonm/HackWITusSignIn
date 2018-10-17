@@ -1,37 +1,25 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
-
-beforeEach(done => {
-  clearDB = () => {
-    for (let i in mongoose.connection.collections) {
-      mongoose.connection.collections[i].deleteMany({});
-    }
-    return done();
-  };
-
-  if (mongoose.connection.readyState === 0) {
-    mongoose.connect(
-      `mongodb://${process.env.USER}:${
-        process.env.PASS
-      }@ds151402.mlab.com:51402/upton-auth`,
-      { useNewUrlParser: true },
-      function(err) {
-        if (err) {
-          throw err;
-        }
-        return clearDB();
-      }
+const mongoose = require('mongoose');
+require('../models/user.model')
+require('dotenv').config();
+beforeEach(async () => {
+  async function clearDB() {
+    await Promise.all(
+      Object.keys(mongoose.connection.collections).map(async (key) => {
+        return await mongoose.connection.collections[key].deleteMany({});
+      })
     );
-  } else {
-    return clearDB();
   }
+ 
+  if (mongoose.connection.readyState === 0) {
+    await mongoose.connect(
+      `mongodb://${process.env.USER}:${process.env.PASS}@ds151402.mlab.com:51402/upton-auth`,
+      { useNewUrlParser: true }
+    );
+  }
+  await clearDB();
+});
+ 
+afterEach(async () => {
+  await mongoose.connection.close();
 });
 
-afterEach(done => {
-  mongoose.disconnect();
-  return done();
-});
-
-afterAll(done => {
-  return done();
-});
