@@ -18,5 +18,5 @@ jobs:
       - checkout
       - run: npm install
       - run: npm test
-      - notify:
-          -url: https://discordapp.com/api/webhooks/502223534844805140/OvkhCpr2PCnKcWX0BZJg0hlYKupWgpbO9H8JX7rHC7tgtDij3uckpZHaWGYz5Z_uiUG2
+    notify:
+      - url: https://discordapp.com/api/webhooks/502223534844805140/OvkhCpr2PCnKcWX0BZJg0hlYKupWgpbO9H8JX7rHC7tgtDij3uckpZHaWGYz5Z_uiUG2
