@@ -16,6 +16,12 @@ app.use(bodyParser.json());
 
 require("./routes/user.routes")(app);
 
+app.set("view engine", "pug");
+
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
