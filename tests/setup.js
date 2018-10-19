@@ -14,7 +14,7 @@ beforeEach(async () => {
     await mongoose.connect(
       `mongodb://${process.env.USER}:${
         process.env.PASS
-      }@ds151402.mlab.com:51402/upton-auth`,
+      }@ds137263.mlab.com:37263/uptonm-ci-testing`,
       { useNewUrlParser: true }
     );
   }
