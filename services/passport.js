@@ -27,8 +27,21 @@ passport.use(
         //console.log('We already have a user with this id'); //Test
         return done(null, existingUser);
       } // We don't have a user record with this id, make a new record
-      console.log('Adding user id: ', profile); // Test
-      const user = await new User({ first: profile.name.givenName, last: profile.name.familyName, googleId: profile.id }).save()
+      let email = (profile.emails[0].value);
+      console.log(email); // Test
+      let school = email.substring(
+        email.lastIndexOf("@") + 1, 
+        email.lastIndexOf(".")
+      );
+      //console.log(school);
+      const user = await new User({
+           first: profile.name.givenName, 
+           last: profile.name.familyName, 
+           googleId: profile.id, 
+           email: profile.emails[0].value,
+           school
+        }).save()
+      
       done(null, user);
     }
   )
