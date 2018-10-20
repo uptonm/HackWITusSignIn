@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import logo from './assets/leologo-web.png';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./assets/leologo-web.png";
+import "./App.css";
 
 class App extends Component {
   render() {

@@ -1,8 +1,8 @@
-const passport = require('passport');
-const googleStrategy = require('passport-google-oauth20').Strategy;
-const mongoose = require('mongoose');
+const passport = require("passport");
+const googleStrategy = require("passport-google-oauth20").Strategy;
+const mongoose = require("mongoose");
 
-const User = mongoose.model('users');
+const User = mongoose.model("users");
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -23,25 +23,26 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({ googleId: profile.id });
-      if (existingUser) { // We already have a record with the given profile id
+      if (existingUser) {
+        // We already have a record with the given profile id
         //console.log('We already have a user with this id'); //Test
         return done(null, existingUser);
       } // We don't have a user record with this id, make a new record
-      let email = (profile.emails[0].value);
+      let email = profile.emails[0].value;
       console.log(email); // Test
       let school = email.substring(
-        email.lastIndexOf("@") + 1, 
+        email.lastIndexOf("@") + 1,
         email.lastIndexOf(".")
       );
       //console.log(school);
       const user = await new User({
-           first: profile.name.givenName, 
-           last: profile.name.familyName, 
-           googleId: profile.id, 
-           email: profile.emails[0].value,
-           school
-        }).save()
-      
+        first: profile.name.givenName,
+        last: profile.name.familyName,
+        googleId: profile.id,
+        email: profile.emails[0].value,
+        school
+      }).save();
+
       done(null, user);
     }
   )
