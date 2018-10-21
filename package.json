@@ -8,7 +8,7 @@
     "dev": "nodemon .",
     "test": "jest --forceExit",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
+    "coveralls": "jest --coverage --forceExit && cat ./tests/coverage/lcov.info | coveralls"
   },
   "proxy": {
     "/api": "http://localhost:8000/api/"
