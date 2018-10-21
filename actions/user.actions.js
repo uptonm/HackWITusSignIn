@@ -6,6 +6,9 @@ const error = {
   400: {
     message: "Error, bad request"
   },
+  403: {
+    message: "Error, request forbidden"
+  },
   404: {
     message: "Error, user not found"
   }
@@ -20,13 +23,18 @@ consoleOutput = (route, request, status) => {
 };
 
 exports.get = async (req, res) => {
-  const exists = await User.find({});
-  if (exists && exists.length > 0) {
-    consoleOutput("/api/users", "GET", 200);
-    return res.status(200).send(exists);
+  if (req.query.key === process.env.PASS) {
+    const exists = await User.find({});
+    if (exists && exists.length > 0) {
+      consoleOutput("/api/users", "GET", 200);
+      return res.status(200).send(exists);
+    }
+    consoleOutput("/api/users", "GET", 400);
+    return res.status(404).send(error[404]);
+  } else {
+    consoleOutput("/api/users", "GET", 403);
+    return res.status(403).send(error[403]);
   }
-  consoleOutput("/api/users", "GET", 400);
-  return res.status(404).send(error[404]);
 };
 
 exports.getOne = async (req, res) => {
