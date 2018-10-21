@@ -7,7 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon .",
     "test": "jest --forceExit",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls"
   },
   "proxy": {
     "/api": "http://localhost:8000/api/"
@@ -30,5 +31,8 @@
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
     "pug": "^2.0.3"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.2"
   }
 }
