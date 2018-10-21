@@ -1,4 +1,8 @@
-# ci-testing
+<div align="center">
+    <h1 align="center"><img align="center" src="https://uptonm-backend-server.herokuapp.com/static/media/leologo-web.78c36330.png" height="50vh">
+    HackWITus SignIn</h1>
+</div>
+
 <p align="center">
     <a href="https://circleci.com/gh/uptonm/ci-testing">
       <img src="https://circleci.com/gh/uptonm/ci-testing.svg?style=shield" alt="CircleCI Build Status">
