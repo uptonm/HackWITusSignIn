@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieSession = require("cookie-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 require("dotenv").config();
@@ -18,6 +19,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cookieSession({
+    maxDays: 30 * 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIEKEY]
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
