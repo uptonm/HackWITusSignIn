@@ -87,7 +87,7 @@ class Form extends Component {
       school: school.value !== "other" ? school.value : school.other,
       major: major.value
     };
-    console.log(data);
+    //console.log(data);
     await putUser(this.props.auth._id, data);
   };
 
