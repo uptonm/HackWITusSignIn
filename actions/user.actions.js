@@ -38,6 +38,7 @@ exports.get = async (req, res) => {
 };
 
 exports.getOne = async (req, res) => {
+  console.log("ran");
   if (req.query.key === process.env.QUERYKEY) {
     const exists = await User.findById(req.params.id);
     if (exists) {
@@ -69,7 +70,7 @@ exports.post = async (req, res) => {
 };
 
 exports.put = async (req, res) => {
-  if (req.query.key === proccess.env.QUERYKEY) {
+  if (req.query.key === process.env.QUERYKEY) {
     const exists = await User.findById(req.params.id);
     if (exists) {
       const update = await User.findByIdAndUpdate(exists._id, req.body);
