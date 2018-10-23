@@ -38,7 +38,6 @@ exports.get = async (req, res) => {
 };
 
 exports.getOne = async (req, res) => {
-  console.log("ran");
   if (req.query.key === process.env.QUERYKEY) {
     const exists = await User.findById(req.params.id);
     if (exists) {

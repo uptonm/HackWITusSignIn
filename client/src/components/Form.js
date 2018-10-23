@@ -89,6 +89,7 @@ class Form extends Component {
     };
     //console.log(data);
     await putUser(this.props.auth._id, data);
+    this.props.history.push("/post-sign-in");
   };
 
   renderContent() {
