@@ -7,6 +7,9 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const putUser = async (id, data) => {
-  await axios.put(`/api/users/${id}/?key=${process.env.QUERYKEY}`, data);
+  await axios.put(
+    `/api/users/${id}/?key=${process.env.REACT_APP_QUERYKEY}`,
+    data
+  );
   //console.log({ type: PUT_USER, payload: res.data });
 };
