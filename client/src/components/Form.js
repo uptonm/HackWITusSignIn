@@ -84,7 +84,7 @@ class Form extends Component {
       first: first.value,
       last: last.value,
       email: email.value,
-      school: school.value !== "other" ? school.value : school.other,
+      school: school.value !== "other" || "gmail" ? school.value : school.other,
       major: major.value
     };
     //console.log(data);
