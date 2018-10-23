@@ -8,7 +8,6 @@ import * as actions from "../actions";
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    console.log(process.env);
   }
   render() {
     return (
