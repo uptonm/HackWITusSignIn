@@ -29,6 +29,7 @@ const SelectInput = ({ id, label, value, onChange }) => {
         value={value}
         onChange={onChange}
       >
+        <option value="">Select a School</option>
         <option value="wit">Wentworth Institute of Technology</option>
         <option value="northeastern">Northeastern University</option>
         <option value="massart">MassArt</option>
@@ -84,10 +85,9 @@ class Form extends Component {
       first: first.value,
       last: last.value,
       email: email.value,
-      school: school.value !== "other" || "gmail" ? school.value : school.other,
+      school: school.value !== "other" ? school.value : school.other,
       major: major.value
     };
-    //console.log(data);
     await putUser(this.props.auth._id, data);
     this.props.history.push("/post-sign-in");
   };
@@ -108,7 +108,7 @@ class Form extends Component {
       },
       school: {
         ...this.state.school,
-        value: this.props.auth.school
+        value: this.props.auth.school !== "gmail" ? this.props.auth.school : ""
       }
     });
   }
