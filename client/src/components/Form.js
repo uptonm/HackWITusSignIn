@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import axios from "axios";
+import { putUser } from "../actions/index";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Input = ({ id, label, placeholder, value, onChange }) => {
@@ -79,20 +79,16 @@ class Form extends Component {
   onSubmit = async event => {
     event.preventDefault();
     // console.log(this.props.auth);
+    const { first, last, email, school, major } = this.state;
     const data = {
-      first: this.state.first.value,
-      last: this.state.last.value,
-      email: this.state.email.value,
-      school: this.state.school.value,
-      major: this.state.major.value
+      first: first.value,
+      last: last.value,
+      email: email.value,
+      school: school.value !== "other" ? school.value : school.other,
+      major: major.value
     };
-    // const response = await axios.put(
-    //   `https://uptonm-backend-server.herokuapp.com/api/users/${
-    //     this.props.auth._id
-    //   }`,
-    //   data
-    // );
     console.log(data);
+    await putUser(this.props.auth._id, data);
   };
 
   renderContent() {
