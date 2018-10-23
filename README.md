@@ -16,11 +16,7 @@
     <a href="https://discord.gg/6uKC74C">
       <img src="https://img.shields.io/discord/384804254927421448.svg" alt="Discord">
     </a>
-    <a href="https://uptonm-backend-server.herokuapp.com/">
-      <img src="http://heroku-badge.herokuapp.com/?app=uptonm-backend-server&style=flat&svg=1" alt="Heroku Deployed">
-    </a>
 </p>
 
-Messing around with CircleCI and Jest.
+This repo serves to be the main sign in page for HackWITus 2018.
 
-I could try to make up some long explanation for why I wanted to learn how to use CircleCI, but its really only because I wanted to have the badge on my readme.
