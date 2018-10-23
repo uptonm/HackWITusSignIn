@@ -18,6 +18,5 @@
     </a>
 </p>
 
-Messing around with CircleCI and Jest.
+This repo serves to be the main sign in page for HackWITus 2018.
 
-I could try to make up some long explanation for why I wanted to learn how to use CircleCI, but its really only because I wanted to have the badge on my readme.
