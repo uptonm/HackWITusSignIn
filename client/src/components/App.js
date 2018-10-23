@@ -6,6 +6,9 @@ import Form from "./Form";
 import * as actions from "../actions";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
   render() {
     return (
       <div>
