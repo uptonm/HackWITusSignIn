@@ -71,7 +71,6 @@ This repo serves to be the main sign in page for HackWITus 2018.
 
 ```javascript
 GOOGLECLIENTID=********************
-
 GOOGLECLIENTSECRET=****************
 ```
 
@@ -93,9 +92,7 @@ GOOGLECLIENTSECRET=****************
 
 ```javascript
 GOOGLECLIENTID=********************
-
 GOOGLECLIENTSECRET=****************
-
 DBURI=*****************************
 ```
 
@@ -105,15 +102,44 @@ DBURI=*****************************
 
 ```javascript
 GOOGLECLIENTID=********************
-
 GOOGLECLIENTSECRET=****************
-
 DBURI=*****************************
-
 COOKIEKEY=skujdnoasudbnaisudbsidubn
-
 QUERYKEY=ksjnddsudnosaudnosidhosidh
-
 PORT=8000
 ```
 
+## React Side Enviornment Variables
+- There is only one React side enviornment variable to add
+- Make a file named `.env` in the `client` directory, and add the same QUERYKEY you used above to it under the name `REACT_APP_QUERYKEY`
+- The resulting file should look something like this:
+
+```javascript
+REACT_APP_QUERYKEY=ksjnddsudnosaudnosidhosidh
+```
+
+- So your two `.env` files should look like the following
+./HackWITusSignIn/.env
+```javascript
+GOOGLECLIENTID=********************
+GOOGLECLIENTSECRET=****************
+DBURI=*****************************
+COOKIEKEY=skujdnoasudbnaisudbsidubn
+QUERYKEY=ksjnddsudnosaudnosidhosidh
+PORT=8000
+```
+
+./HackWITusSignIn/client/.env
+```javascript
+REACT_APP_QUERYKEY=ksjnddsudnosaudnosidhosidh
+```
+
+## Starting Up the Development Server
+- To start up the development server follow these steps
+- Setup enviornment variables in cloned repo (See above steps for this)
+- `npm install` in root directory
+- `npm run dev` to start the backend server
+- In another terminal window `cd client && npm install`
+- `npm start` to start the front-end react development server
+- You should be good to go at this point, if you have any questions feel free to reach out to me or open an issue! 
+- Happy Hacking!
