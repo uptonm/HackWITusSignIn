@@ -12,9 +12,7 @@ beforeEach(async () => {
 
   if (mongoose.connection.readyState === 0) {
     await mongoose.connect(
-      `mongodb://${process.env.USER}:${
-        process.env.PASS
-      }@ds137263.mlab.com:37263/uptonm-ci-testing`,
+      process.env.DBURI,
       { useNewUrlParser: true }
     );
   }
