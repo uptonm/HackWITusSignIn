@@ -4,8 +4,8 @@
 </div>
 
 <p align="center">
-    <a href="https://circleci.com/gh/uptonm/ci-testing">
-      <img src="https://circleci.com/gh/uptonm/ci-testing.svg?style=shield" alt="CircleCI Build Status">
+    <a href="https://circleci.com/gh/uptonm/HackWITusSignIn">
+      <img src="https://circleci.com/gh/uptonm/HackWITusSignIn.svg?style=shield" alt="CircleCI Build Status">
     </a>
     <a href="https://travis-ci.org/uptonm/HackWITusSignIn">
       <img src="https://travis-ci.org/uptonm/HackWITusSignIn.svg?branch=master" alt="TravisCI Build Status">
