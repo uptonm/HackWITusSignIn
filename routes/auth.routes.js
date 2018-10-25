@@ -22,7 +22,7 @@ module.exports = app => {
       // Does user exist?/ are they logged in?
       res.send(req.user);
     } else {
-      res.send("");
+      res.send("Please Login");
     }
   });
 

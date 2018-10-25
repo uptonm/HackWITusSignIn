@@ -29,7 +29,6 @@ passport.use(
         return done(null, existingUser);
       } // We don't have a user record with this id, make a new record
       let email = profile.emails[0].value;
-      console.log(email); // Test
       let school = email.substring(
         email.lastIndexOf("@") + 1,
         email.lastIndexOf(".")
@@ -40,7 +39,9 @@ passport.use(
         last: profile.name.familyName,
         googleId: profile.id,
         email: profile.emails[0].value,
-        school
+        school,
+        organizer: false,
+        swagRedeemed: false
       }).save();
 
       done(null, user);
