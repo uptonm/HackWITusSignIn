@@ -50,6 +50,7 @@ class Organizer extends Component {
           <td>{user.last}</td>
           <td>{user.school}</td>
           <td>{user.major}</td>
+          <td>{user.phone}</td>
           <td>
             {user.swagRedeemed === false ? (
               <button
@@ -60,8 +61,8 @@ class Organizer extends Component {
                 Redeem
               </button>
             ) : (
-              <span>Swag Redeemed</span>
-            )}
+                <span>Swag Redeemed</span>
+              )}
           </td>
         </tr>
       );
@@ -71,7 +72,7 @@ class Organizer extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="display-1 text-center">Users</h1>
+        <h1 className="display-1 text-center">Hackers</h1>
         <table className="table">
           <thead>
             <tr>
@@ -80,6 +81,7 @@ class Organizer extends Component {
               <th scope="col">Last</th>
               <th scope="col">School</th>
               <th scope="col">Major</th>
+              <th scope="col">Phone</th>
               <th scope="col">Swag</th>
             </tr>
           </thead>
