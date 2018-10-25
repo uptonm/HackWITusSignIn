@@ -7,6 +7,7 @@ import Form from "./Form";
 import Organizer from "./Organizer";
 import Unauthorized from "./Unauthorized";
 import * as actions from "../actions";
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 class App extends Component {
   componentDidMount() {

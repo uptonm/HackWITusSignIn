@@ -87,7 +87,8 @@ class Organizer extends Component {
           </thead>
           <tbody>{this.renderUsers()}</tbody>
         </table>
-        <button className="btn btn-success" onClick={this.refreshUsers}>
+        <button className="btn btn-success float-left" onClick={this.refreshUsers}>
+          <i className="fas fa-sync" style={{ marginRight: '0.5em' }} />
           Refresh
         </button>
       </div>
