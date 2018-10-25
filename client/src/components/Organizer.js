@@ -1,48 +1,36 @@
 import React, { Component } from "react";
 import { fetchUsers, putUser } from "../actions/index";
+import hackwitusLogo from '../assets/leologo-web.png'
 
 class Organizer extends Component {
   state = {
-    users: []
+    users: {}
   };
 
   componentDidMount = () => {
     this.refreshUsers();
   };
 
-  contains = user => {
-    let exists = false;
-    for (let i = 0; i < this.state.users.length; i++) {
-      if (this.state.users[i]._id === user._id) {
-        exists = true;
-      }
-    }
-    return exists;
-  };
-
   async setSwag({ _id }) {
     const data = { swagRedeemed: true };
-    this.state.users.map(user => {
-      if (user._id === _id) {
-        user.swagRedeemed = true;
-        this.forceUpdate();
-      }
-      return true;
-    });
+    this.state.users[_id].swagRedeemed = true;
+    this.forceUpdate();
     await putUser(_id, data);
   }
 
   refreshUsers = async () => {
     const res = await fetchUsers();
     res.forEach(user => {
-      if (!this.contains(user)) {
-        this.setState({ users: [...this.state.users, user] });
+      if (!this.state.users[user._id]) {
+        this.state.users[user._id] = user;
+        this.forceUpdate();
       }
     });
   };
 
   renderUsers = () => {
-    return this.state.users.map(user => {
+    return Object.keys(this.state.users).map((keyName) => {
+      let user = this.state.users[keyName];
       return (
         <tr key={user._id}>
           <td>{user.email}</td>
@@ -52,10 +40,10 @@ class Organizer extends Component {
           <td>{user.major}</td>
           <td>{user.phone}</td>
           <td>
-            {user.swagRedeemed === false ? (
+            {this.state.users[keyName].swagRedeemed === false ? (
               <button
                 id={this._id}
-                className="btn btn-sm btn-success"
+                className="btn btn-sm btn-primary"
                 onClick={this.setSwag.bind(this, user)}
               >
                 Redeem
@@ -72,7 +60,19 @@ class Organizer extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="display-1 text-center">Hackers</h1>
+        {/* <button className="btn btn-success btn-sm nav-link" onClick={this.refreshUsers} style={{ marginBottom: '1em' }}>
+          <i className="fas fa-sync" style={{ marginRight: "0.5em" }} />
+          Refresh
+            </button> */}
+        <nav className="navbar navbar-light bg-light">
+          <a className="navbar-brand">
+            <img src={hackwitusLogo} width="30" height="30" className="d-inline-block align-top" alt="" style={{ marginRight: '0.5em' }} />
+            HackWITus Hackers
+          </a>
+          <ul className="navbar-nav">
+            <button onClick={this.refreshUsers} className="btn btn-outline-secondary my-2 my-sm-0"><i className="fas fa-sync" style={{ marginRight: "0.5em" }} />Refresh</button>
+          </ul>
+        </nav>
         <table className="table">
           <thead>
             <tr>
@@ -87,10 +87,6 @@ class Organizer extends Component {
           </thead>
           <tbody>{this.renderUsers()}</tbody>
         </table>
-        <button className="btn btn-success float-left" onClick={this.refreshUsers}>
-          <i className="fas fa-sync" style={{ marginRight: '0.5em' }} />
-          Refresh
-        </button>
       </div>
     );
   }

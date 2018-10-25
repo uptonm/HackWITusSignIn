@@ -305,7 +305,7 @@ class Form extends Component {
   render() {
     return (
       <div className="container">
-        <h1 className="text-center display-1">Registration Review</h1>
+        <h1 className="text-center display-4">Registration Review</h1>
         <form onSubmit={this.onSubmit}>
           {this.renderFields()}
           <button
