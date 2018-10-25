@@ -1,46 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { putUser } from "../actions/index";
+import Input from "./InputField";
+import SelectInput from "./SelectField";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-const Input = ({ id, label, placeholder, value, onChange }) => {
-  return (
-    <div key={id} className="form-group">
-      <label htmlFor={id}>{label}</label>
-      <input
-        type={id === "email" ? "email" : "text"}
-        className="form-control"
-        id={id}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  );
-};
-
-const SelectInput = ({ id, label, value, onChange }) => {
-  return (
-    <div className="form-group">
-      <label htmlFor={id}>{label}</label>
-      <select
-        className="form-control"
-        id={id}
-        value={value}
-        onChange={onChange}
-      >
-        <option value="">Select a School</option>
-        <option value="wit">Wentworth Institute of Technology</option>
-        <option value="northeastern">Northeastern University</option>
-        <option value="massart">MassArt</option>
-        <option value="mcphs">MCPHS</option>
-        <option value="simmons">Simmons University</option>
-        <option value="emmanuel">Emmanuel University</option>
-        <option value="other">Other</option>
-      </select>
-    </div>
-  );
-};
 class Form extends Component {
   state = {
     first: {
@@ -61,6 +24,12 @@ class Form extends Component {
       placeHolder: "Enter Email",
       value: ""
     },
+    phone: {
+      id: "phone",
+      label: "Phone Number",
+      placeHolder: "Enter Phone Number",
+      value: ""
+    },
     school: {
       id: "school",
       label: "School",
@@ -74,17 +43,22 @@ class Form extends Component {
       placeHolder: "Enter Major",
       value: ""
     },
+    errors: {
+      email: "",
+      phone: ""
+    },
     doOnce: 0
   };
 
   onSubmit = async event => {
     event.preventDefault();
     // console.log(this.props.auth);
-    const { first, last, email, school, major } = this.state;
+    const { first, last, email, phone, school, major } = this.state;
     const data = {
       first: first.value,
       last: last.value,
       email: email.value,
+      phone: phone.value,
       school: school.value !== "other" ? school.value : school.other,
       major: major.value
     };
@@ -121,6 +95,90 @@ class Form extends Component {
         break;
       default:
         this.renderContent();
+    }
+  };
+
+  validateEmail() {
+    let email = this.state.email.value;
+    let error = "";
+    if (email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+      error = "";
+    } else {
+      error = "Invalid Email";
+    }
+    return error;
+  }
+
+  validatePhone() {
+    let phone = this.state.phone.value;
+    let error = "";
+    if (phone.match(/^[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-/\s.]?[0-9]{4}$/)) {
+      error = "";
+    } else {
+      error = "Invalid Phone Number";
+    }
+    return error;
+  }
+
+  validateSchool() {
+    let school = this.state.school.value;
+    let error = "";
+    if (school === 'other') {
+      school = this.state.school.other;
+    }
+    if (school.length > 0) {
+      error = "";
+    } else {
+      error = "School is Required";
+    }
+    return error;
+  }
+
+  validateMajor() {
+    let major = this.state.major.value;
+    let error = ""
+    if (major.length > 0) {
+      error = "";
+    } else {
+      error = "Major is required";
+    }
+    return error;
+  }
+
+  validateFirst() {
+    let first = this.state.first.value;
+    let error = ""
+    if (first.length > 0) {
+      error = ""
+    } else {
+      error = "First Name is required";
+    }
+    return error;
+  }
+
+  validateLast() {
+    let last = this.state.last.value;
+    let error = ""
+    if (last.length > 0) {
+      error = ""
+    } else {
+      error = "Last Name is required";
+    }
+    return error;
+  }
+
+  canSubmit = () => {
+    let errors = {};
+    errors.email = this.validateEmail();
+    errors.phone = this.validatePhone();
+    errors.major = this.validateMajor();
+    errors.school = this.validateSchool();
+    errors.first = this.validateFirst();
+    errors.last = this.validateLast();
+    if (errors.email === "" && errors.phone === "" && errors.major === "" && errors.school === "" && errors.first === "" && errors.last === "") {
+      return false;
+    } else {
+      return true;
     }
   };
 
@@ -178,6 +236,22 @@ class Form extends Component {
                   }
                 })
               }
+              error={this.state.errors.phone}
+            />
+            <Input
+              id={this.state.phone.id}
+              label={this.state.phone.label}
+              placeholder={this.state.phone.placeHolder}
+              value={this.state.phone.value}
+              onChange={event =>
+                this.setState({
+                  phone: {
+                    ...this.state.phone,
+                    value: event.target.value
+                  }
+                })
+              }
+              error={this.state.errors.phone}
             />
             <SelectInput
               id={this.state.school.id}
@@ -208,8 +282,8 @@ class Form extends Component {
                 }
               />
             ) : (
-              <div />
-            )}
+                <div />
+              )}
             <Input
               id={this.state.major.id}
               label={this.state.major.label}
@@ -234,7 +308,11 @@ class Form extends Component {
         <h1 className="text-center display-1">Registration Review</h1>
         <form onSubmit={this.onSubmit}>
           {this.renderFields()}
-          <button type="submit" className="btn btn-lg btn-submit">
+          <button
+            type="submit"
+            className={`btn btn-lg ${(this.canSubmit()) ? '' : 'btn-success'} float-right`}
+            disabled={this.canSubmit()}
+          >
             Submit
           </button>
         </form>
@@ -242,16 +320,8 @@ class Form extends Component {
     );
   }
 }
+
 function mapStateToProps({ auth }) {
   return { auth };
 }
-
 export default connect(mapStateToProps)(Form);
-
-// {field.id === "email" ? (
-//   <small id={`${field.id}-help`} className="form-text text-muted">
-//     We'll never share your email with anyone else.
-//   </small>
-// ) : (
-//   ""
-// )}
