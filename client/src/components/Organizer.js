@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { fetchUsers, putUser } from "../actions/index";
-import hackwitusLogo from '../assets/leologo-web.png'
+import hackwitusLogo from "../assets/leologo-web.png";
 
 class Organizer extends Component {
   state = {
@@ -29,7 +29,7 @@ class Organizer extends Component {
   };
 
   renderUsers = () => {
-    return Object.keys(this.state.users).map((keyName) => {
+    return Object.keys(this.state.users).map(keyName => {
       let user = this.state.users[keyName];
       return (
         <tr key={user._id}>
@@ -39,6 +39,7 @@ class Organizer extends Component {
           <td>{user.school}</td>
           <td>{user.major}</td>
           <td>{user.phone}</td>
+          <td>{user.dietaryRestrictions}</td>
           <td>
             {this.state.users[keyName].swagRedeemed === false ? (
               <button
@@ -49,8 +50,8 @@ class Organizer extends Component {
                 Redeem
               </button>
             ) : (
-                <span>Swag Redeemed</span>
-              )}
+              <span>Swag Redeemed</span>
+            )}
           </td>
         </tr>
       );
@@ -65,12 +66,25 @@ class Organizer extends Component {
           Refresh
             </button> */}
         <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand">
-            <img src={hackwitusLogo} width="30" height="30" className="d-inline-block align-top" alt="" style={{ marginRight: '0.5em' }} />
+          <a href="https://hackwit.us" className="navbar-brand">
+            <img
+              src={hackwitusLogo}
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+              alt=""
+              style={{ marginRight: "0.5em" }}
+            />
             HackWITus Hackers
           </a>
           <ul className="navbar-nav">
-            <button onClick={this.refreshUsers} className="btn btn-outline-secondary my-2 my-sm-0"><i className="fas fa-sync" style={{ marginRight: "0.5em" }} />Refresh</button>
+            <button
+              onClick={this.refreshUsers}
+              className="btn btn-outline-secondary my-2 my-sm-0"
+            >
+              <i className="fas fa-sync" style={{ marginRight: "0.5em" }} />
+              Refresh
+            </button>
           </ul>
         </nav>
         <table className="table">
@@ -82,6 +96,7 @@ class Organizer extends Component {
               <th scope="col">School</th>
               <th scope="col">Major</th>
               <th scope="col">Phone</th>
+              <th scope="col">Dietary</th>
               <th scope="col">Swag</th>
             </tr>
           </thead>

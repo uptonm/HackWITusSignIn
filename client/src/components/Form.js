@@ -43,6 +43,12 @@ class Form extends Component {
       placeHolder: "Enter Major",
       value: ""
     },
+    dietaryRestrictions: {
+      id: "dietaryRestrictions",
+      label: "Dietary Restrictions",
+      placeHolder: "Enter Dietary Restrictions",
+      value: ""
+    },
     errors: {
       email: "",
       phone: ""
@@ -53,14 +59,23 @@ class Form extends Component {
   onSubmit = async event => {
     event.preventDefault();
     // console.log(this.props.auth);
-    const { first, last, email, phone, school, major } = this.state;
+    const {
+      first,
+      last,
+      email,
+      phone,
+      school,
+      major,
+      dietaryRestrictions
+    } = this.state;
     const data = {
       first: first.value,
       last: last.value,
       email: email.value,
       phone: phone.value,
       school: school.value !== "other" ? school.value : school.other,
-      major: major.value
+      major: major.value,
+      dietaryRestrictions: dietaryRestrictions.value
     };
     await putUser(this.props.auth._id, data);
     this.props.history.push("/post-sign-in");
@@ -123,7 +138,7 @@ class Form extends Component {
   validateSchool() {
     let school = this.state.school.value;
     let error = "";
-    if (school === 'other') {
+    if (school === "other") {
       school = this.state.school.other;
     }
     if (school.length > 0) {
@@ -136,7 +151,7 @@ class Form extends Component {
 
   validateMajor() {
     let major = this.state.major.value;
-    let error = ""
+    let error = "";
     if (major.length > 0) {
       error = "";
     } else {
@@ -147,9 +162,9 @@ class Form extends Component {
 
   validateFirst() {
     let first = this.state.first.value;
-    let error = ""
+    let error = "";
     if (first.length > 0) {
-      error = ""
+      error = "";
     } else {
       error = "First Name is required";
     }
@@ -158,9 +173,9 @@ class Form extends Component {
 
   validateLast() {
     let last = this.state.last.value;
-    let error = ""
+    let error = "";
     if (last.length > 0) {
-      error = ""
+      error = "";
     } else {
       error = "Last Name is required";
     }
@@ -175,7 +190,14 @@ class Form extends Component {
     errors.school = this.validateSchool();
     errors.first = this.validateFirst();
     errors.last = this.validateLast();
-    if (errors.email === "" && errors.phone === "" && errors.major === "" && errors.school === "" && errors.first === "" && errors.last === "") {
+    if (
+      errors.email === "" &&
+      errors.phone === "" &&
+      errors.major === "" &&
+      errors.school === "" &&
+      errors.first === "" &&
+      errors.last === ""
+    ) {
       return false;
     } else {
       return true;
@@ -282,8 +304,8 @@ class Form extends Component {
                 }
               />
             ) : (
-                <div />
-              )}
+              <div />
+            )}
             <Input
               id={this.state.major.id}
               label={this.state.major.label}
@@ -293,6 +315,20 @@ class Form extends Component {
                 this.setState({
                   major: {
                     ...this.state.major,
+                    value: event.target.value
+                  }
+                })
+              }
+            />
+            <Input
+              id={this.state.dietaryRestrictions.id}
+              label={this.state.dietaryRestrictions.label}
+              placeholder={this.state.dietaryRestrictions.placeHolder}
+              value={this.state.dietaryRestrictions.value}
+              onChange={event =>
+                this.setState({
+                  dietaryRestrictions: {
+                    ...this.state.dietaryRestrictions,
                     value: event.target.value
                   }
                 })
@@ -310,7 +346,9 @@ class Form extends Component {
           {this.renderFields()}
           <button
             type="submit"
-            className={`btn btn-lg ${(this.canSubmit()) ? '' : 'btn-success'} float-right`}
+            className={`btn btn-lg ${
+              this.canSubmit() ? "" : "btn-success"
+            } float-right`}
             disabled={this.canSubmit()}
           >
             Submit

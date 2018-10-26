@@ -10,7 +10,8 @@ const userSchema = new Schema({
   school: String,
   major: String,
   organizer: Boolean,
-  swagRedeemed: Boolean
+  swagRedeemed: Boolean,
+  dietaryRestrictions: String
 });
 
 const User = mongoose.model("users", userSchema);
