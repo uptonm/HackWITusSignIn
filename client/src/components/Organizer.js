@@ -61,7 +61,8 @@ class Organizer extends Component {
   renderUserCount() {
     return (
       <button className="btn btn-outline-secondary my-2 my-sm-0">
-        <strong>{Object.keys(this.state.users).length}</strong> Users Signed-In
+        <strong>{Object.keys(this.state.users).length - 4}</strong> Users
+        Signed-In
       </button>
     );
   }
