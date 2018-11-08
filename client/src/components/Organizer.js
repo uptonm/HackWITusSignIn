@@ -58,6 +58,14 @@ class Organizer extends Component {
     });
   };
 
+  renderUserCount() {
+    return (
+      <button className="btn btn-outline-secondary my-2 my-sm-0">
+        <strong>{Object.keys(this.state.users).length}</strong> Users Signed-In
+      </button>
+    );
+  }
+
   render() {
     return (
       <div className="container">
@@ -77,6 +85,7 @@ class Organizer extends Component {
             />
             HackWITus Hackers
           </a>
+          {this.renderUserCount()}
           <ul className="navbar-nav">
             <button
               onClick={this.refreshUsers}
