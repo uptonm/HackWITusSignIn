@@ -49,6 +49,16 @@ class Form extends Component {
       placeHolder: "Enter Dietary Restrictions",
       value: ""
     },
+    waiverSigned: {
+      id: "waiver",
+      label: "I agree to the terms listed in the ",
+      value: false
+    },
+    conductSigned: {
+      id: "conduct",
+      label: "I agree to the ",
+      value: false
+    },
     errors: {
       email: "",
       phone: ""
@@ -66,7 +76,9 @@ class Form extends Component {
       phone,
       school,
       major,
-      dietaryRestrictions
+      dietaryRestrictions,
+      waiverSigned,
+      conductSigned
     } = this.state;
     const data = {
       first: first.value,
@@ -75,7 +87,9 @@ class Form extends Component {
       phone: phone.value,
       school: school.value !== "other" ? school.value : school.other,
       major: major.value,
-      dietaryRestrictions: dietaryRestrictions.value
+      dietaryRestrictions: dietaryRestrictions.value,
+      waiverSigned: waiverSigned.value,
+      conductSigned: conductSigned.value
     };
     await putUser(this.props.auth._id, data);
     this.props.history.push("/post-sign-in");
@@ -196,7 +210,9 @@ class Form extends Component {
       errors.major === "" &&
       errors.school === "" &&
       errors.first === "" &&
-      errors.last === ""
+      errors.last === "" &&
+      this.state.conductSigned.value &&
+      this.state.waiverSigned.value
     ) {
       return false;
     } else {
@@ -334,6 +350,57 @@ class Form extends Component {
                 })
               }
             />
+            <div className="form-check">
+              <input
+                id={this.state.waiverSigned.id}
+                className="form-check-input"
+                type="checkbox"
+                value={this.state.waiverSigned.value}
+                onChange={event =>
+                  this.setState({
+                    waiverSigned: {
+                      ...this.state.waiverSigned,
+                      value: event.target.checked
+                    }
+                  })
+                }
+              />
+              <label
+                className="form-check-label"
+                htmlFor={this.state.waiverSigned.id}
+              >
+                {this.state.waiverSigned.label}{" "}
+                <a href="https://hackwit.us/liability-waiver/">
+                  HackWITus Liability Waiver
+                </a>
+              </label>
+            </div>
+
+            <div className="form-check">
+              <input
+                id={this.state.conductSigned.id}
+                className="form-check-input"
+                type="checkbox"
+                value={this.state.conductSigned.value}
+                onChange={event =>
+                  this.setState({
+                    conductSigned: {
+                      ...this.state.conductSigned,
+                      value: event.target.checked
+                    }
+                  })
+                }
+              />
+              <label
+                className="form-check-label"
+                htmlFor={this.state.conductSigned.id}
+              >
+                {this.state.conductSigned.label}{" "}
+                <a href="https://hackwit.us/code_of_conduct/">
+                  HackWITus Code of Conduct
+                </a>
+              </label>
+            </div>
           </div>
         );
     }

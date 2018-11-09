@@ -41,7 +41,9 @@ passport.use(
         email: profile.emails[0].value,
         school,
         organizer: false,
-        swagRedeemed: false
+        swagRedeemed: false,
+        waiverSigned: false,
+        conductSigned: false
       }).save();
 
       done(null, user);

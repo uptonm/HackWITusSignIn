@@ -11,7 +11,9 @@ const userSchema = new Schema({
   major: String,
   organizer: Boolean,
   swagRedeemed: Boolean,
-  dietaryRestrictions: String
+  dietaryRestrictions: String,
+  waiverSigned: Boolean,
+  conductSigned: Boolean
 });
 
 const User = mongoose.model("users", userSchema);
